@@ -1,0 +1,119 @@
+/* LOGIN FORM */
+.loginForm {
+    min-height: 400px;
+}
+.loginInput{
+    margin:0;
+    padding: 0;
+}
+
+/* Toolbar area */
+h1.main {
+  margin: 0;
+}
+.menu {
+  background-color: transparent;
+  border: none;
+  height: 38px;
+  margin: 16px;
+  width: 36px;
+}
+
+.md-button.btn-avatar {
+  width: 52px;
+  height: 52px;
+  padding: 0px;
+}
+
+md-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.avatar {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: inline-block;
+  overflow: hidden;
+  margin: 0;
+  vertical-align: middle;
+}
+
+.avatar.list-avatar {
+  border: 1px solid #ddd;
+  zoom: 0.70;
+  transform: translateZ(0);
+  -webkit-transform: scale(0.70);
+  -moz-transform: scale(0.70);
+}
+
+
+/* Sidenav area */
+
+md-list .selected {
+  color: #03a9f4;
+}
+
+md-sidenav md-list {
+  padding: 0 0 8px 0;
+}
+
+.md-button.md-icon-button {
+  margin: 0;
+}
+
+.btn-requests{
+  position: absolute;
+  bottom: 0;
+}
+
+.notification {
+  background-color: rgb(255,64,129);
+  color: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.online {
+  background-color: greenyellow;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+}
+
+/* Primary content area */
+.title-name{
+  margin: 0;
+}
+#content {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 5px;
+}
+
+
+#content md-icon.avatar {
+  margin-top: 10px;
+}
+
+.inputContainer {
+  background-color: white;
+  margin: 0;
+  border: 5px solid lightgray;
+}
+
+.inputContainer textarea {
+  border-bottom-style: none;
+}
+
+md-input-container.inputContainer .md-errors-spacer {
+  display:none;
+}
+
+md-toolbar.mini-toolbar {
+  min-height: 36px;
+  background-color: lightgrey;
+}

@@ -1,0 +1,112 @@
+<div ng-controller="chatCtrl as chatCtrl" layout="row" layout-fill>
+    <!-- SIDEBAR LEFT-->
+    <md-sidenav layout="column" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" md-whiteframe="1">
+        <!-- USER TOOLBAR -->
+        <md-toolbar layout="row" layout-align="left center">
+            <md-button id="userButton" ng-click="chatCtrl.logout()" class="md-fab btn-avatar" aria-label="Show User Settings">
+                <img layout-fill ng-src="{{chatCtrl.user.avatar}}" class="" alt="{{chatCtrl.user.name}}" />
+            </md-button>
+            <h3 flex class="title-name">{{chatCtrl.user.name}}</h3>
+        </md-toolbar>
+        <!-- AUTOCOMPLETE CHIPS USER SEARCH -->
+        <div layout="row">
+            <md-contact-chips flex ng-model="chatCtrl.selectedUsers" md-contacts="chatCtrl.getMatches($query)" md-contact-name="name"
+                md-contact-image="avatar" md-contact-email="email" md-require-match="true" placeholder="{{'SEARCH USER' | translate}}">
+            </md-contact-chips>
+            <md-button ng-click="chatCtrl.addContact()" class="md-icon-button" aria-label="Add Contact">
+                <md-icon md-svg-icon="addcontact"></md-icon>
+            </md-button>
+            <md-button ng-click="chatCtrl.createConversation()" class="md-icon-button" aria-label="Create Conversation">
+                <md-icon md-svg-icon="chat"></md-icon>
+            </md-button>
+        </div>
+        <md-divider></md-divider>
+        <!-- SIDEBAR TABS -->
+        <md-tabs md-stretch-tabs="always" flex>
+            <!-- CONTACTS -->
+            <md-tab label="{{'CONTACTS'| translate}}">
+                <md-tab-content layout="column" layout-fill>
+                    <md-list flex>
+                        <md-list-item ng-if="chatCtrl.contactsShown === contact.status" ng-repeat="contact in chatCtrl.contacts" ng-click="chatCtrl.selectContact(contact)"
+                            ng-class="{ 'selected' : contact===chatCtrl.selectedContact }">
+                            <img ng-src="{{contact.avatar}}" class="avatar list-avatar" alt="{{contact.name}}" />
+                            <span flex>{{contact.name}}</span>
+                            <span ng-class="{ 'online' : contact.online }"></span>
+                        </md-list-item>
+                    </md-list>
+                    <md-button ng-click="chatCtrl.toggleContactsShown()">{{chatCtrl.toggleContactsButtonText}}</md-button>
+                </md-tab-content>
+            </md-tab>
+            <!-- CONVERSATIONS -->
+            <md-tab label="{{'CONVERSATIONS' | translate}}">
+                <md-tab-content layout="column" layout-fill>
+                    <md-list flex>
+                        <md-list-item ng-repeat="conversation in chatCtrl.conversations" ng-click="chatCtrl.selectConversation(conversation)" ng-class="{ 'selected' : conversation===chatCtrl.selectedConversation }">
+                            <img ng-src="{{conversation.avatar}}" class="avatar list-avatar" alt="{{conversation.name}}" />
+                            <span flex>{{conversation.name}}</span>
+                            <span layout="row" layout-align="center center" class="notification" ng-show="conversation.unread">{{conversation.unread}}</span>
+                        </md-list-item>
+                    </md-list>
+                </md-tab-content>
+            </md-tab>
+        </md-tabs>
+    </md-sidenav>
+
+    <!-- MAIN CONTENT RIGHT-->
+    <div layout="column" flex>
+        <!-- CONVERSATION TOOLBAR -->
+        <md-toolbar layout="row" layout-align="left center">
+            <md-button class="menu" hide-gt-sm ng-click="chatCtrl.toggleSidebar()" aria-label="Show Contacts List">
+                <md-icon md-svg-icon="menu"></md-icon>
+            </md-button>
+            <md-button id="ConvoButton" class="md-fab btn-avatar" aria-label="Show Conversation Settings">
+                <img layout-fill ng-src="{{chatCtrl.selectedConversation.avatar}}" class="" alt="{{chatCtrl.selectedConversation.name}}"
+                />
+            </md-button>
+            <h3 flex class="title-name">{{chatCtrl.selectedConversation.name}}</h3>
+            <md-button ng-hide="chatCtrl.selectedConversation.type === 'single'" ng-click="chatCtrl.addUserToConversation()" class="md-icon-button"
+                aria-label="Add User To Conversation">
+                <md-icon md-svg-icon="addgroup"></md-icon>
+            </md-button>
+        </md-toolbar>
+        <!-- CHAT WINDOW -->
+        <md-content flex="70" id="content">
+            <md-list>
+                <md-list-item ng-repeat="message in chatCtrl.selectedConversation.messages">
+                    <img ng-src="{{message.sender.avatar}}" class="avatar list-avatar" alt="{{message.sender.name}}" />
+                    <img flex="80" ng-src="{{message.message}}" ng-if="message.messageType === 'image'" />
+                    <span ng-if="message.messageType === 'text'">{{message.message}}</span>
+                </md-list-item>
+            </md-list>
+        </md-content>
+        <md-divider></md-divider>
+        <md-toolbar layout="row" layout-align="left center" class="mini-toolbar">
+            <md-button aria-label="Text Message" class="md-icon-button" ng-click="chatCtrl.selectInput('textarea')">
+                <md-icon md-svg-icon="text"></md-icon>
+            </md-button>
+
+            <md-button aria-label="Draw Message" class="md-icon-button" ng-click="chatCtrl.selectInput('canvas')">
+                <md-icon md-svg-icon="draw"></md-icon>
+            </md-button>
+            <div flex> </div>
+            <md-button ng-click="chatCtrl.sendMessage()" class="md-icon-button" aria-label="Send Message">
+                <md-icon md-svg-icon="send"></md-icon>
+            </md-button>
+        </md-toolbar>
+
+        <!-- CHAT INPUT TABS -->
+        <div flex="20" layout="column">
+            <!-- CHAT TEXTBOX -->
+            <md-input-container class="inputContainer" flex ng-show="chatCtrl.selectedInput === 'textarea'">
+                <textarea layout-fill id="txtMessage" ng-model="chatCtrl.message" max-rows="4" rows="4" aria-label="Message Textbox" md-select-on-focus
+                    md-no-resize></textarea>
+            </md-input-container>
+
+            <!-- CHAT CANVAS -->
+            <div flex class="inputContainer" ng-show="chatCtrl.selectedInput === 'canvas'">
+                <canvas id="canvas" layout-fill ng-mousedown="chatCtrl.canvasMouseDown($event)" ng-mousemove="chatCtrl.canvasMouseMove($event)"
+                    ng-mouseup="chatCtrl.canvasMouseUp($event)" ng-mouseleave="chatCtrl.canvasMouseLeave($event)"></canvas>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<md-content layout-fill ng-controller="loginCtrl as loginCtrl">
+    <md-toolbar class="md-medium-tall">
+        <h1 layout="row" layout-align="center center">Chat App</h1>
+    </md-toolbar>
+    <md-content layout="column" layout-align="center center" class="loginForm">
+        <md-button class="md-raised md-primary" ng-click="loginCtrl.loginFacebook()">{{'ENTER WITH FACEBOOK' | translate}}</md-button>
+        <p>{{'OR' | translate}}</p>
+        <form layout="column" layout-align="center center" novalidate>
+            <md-input-container class="loginInput" ng-show="loginCtrl.isRegistering">
+                <label for="name">{{'NAME' | translate}}</label>
+                <input type="text" id="name" ng-model="loginCtrl.name" />
+            </md-input-container>
+            <md-input-container class="loginInput">
+                <label for="email">{{'EMAIL' | translate}}</label>
+                <input type="email" id="email" ng-model="loginCtrl.email" />
+            </md-input-container>
+            <md-input-container class="loginInput">
+                <label for="pass">{{'PASSWORD' | translate}}</label>
+                <input type="password" id="pass" ng-model="loginCtrl.pass" />
+            </md-input-container>
+            <div layout="row">
+                <md-button class="md-raised md-primary" ng-click="loginCtrl.loginEmail()" ng-hide="loginCtrl.isRegistering">{{'LOGIN' | translate}}</md-button>
+                <md-button class="md-raised md-primary" ng-click="loginCtrl.signUp()" ng-show="loginCtrl.isRegistering">{{'SIGNUP' | translate}}</md-button>
+                <md-button class="md-raised" ng-click="loginCtrl.toggleRegister()">{{loginCtrl.rightButton}}</md-button>
+            </div>
+        </form>
+    </md-content>
+</md-content>
+<div id="fb-root"></div>

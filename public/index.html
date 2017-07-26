@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="chatApp">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Chat App</title>
+    <!--<link href="assets/css/bootstrap.css" rel="stylesheet" />-->
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,700' />
+    <link rel="stylesheet" href="assets/css/angular-material.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <base href="/">
+</head>
+
+<body ng-cloak ng-controller="mainCtrl">
+    <div ng-view layout-fill></div>
+
+    <!--Vendor JS-->
+    <script src="socket.io/socket.io.js"></script>
+    <script src="assets/libs/jquery-3.1.0.min.js"></script>
+    <script src="assets/libs/angular.js"></script>
+    <script src="assets/libs/angular-route.js"></script>
+    <script src="assets/libs/angular-animate.js"></script>
+    <script src="assets/libs/angular-material.js"></script>
+    <script src="assets/libs/angular-aria.js"></script>
+    <script src="assets/libs/angular-messages.js"></script>
+    <script src="assets/libs/angular-translate.js"></script>
+    <!--Angular-->
+    <script src="angular/app.module.js"></script>
+    <script src="angular/app.routes.js"></script>
+    <!--Modules-->
+    <!--Controllers-->
+    <script src="angular/components/login/login.controller.js"></script>
+    <script src="angular/components/chat/chat.controller.js"></script>
+    <!--Directives-->
+    <!--Services-->
+    <script src="angular/components/login/loginFb.service.js"></script>
+    <script src="angular/components/user/user.service.js"></script>
+    <script src="angular/components/socketio/socketio.service.js"></script>
+</body>
+
+</html>
