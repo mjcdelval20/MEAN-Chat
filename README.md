@@ -1,3 +1,3 @@
 # MEAN-Chat
 
-![Alt text](/Readme Pictures/Accept Contact.png?raw=true "Optional Title")
+![Alt text](/Readme%20Pictures/Accept%20Contact.png?raw=true "Optional Title")
