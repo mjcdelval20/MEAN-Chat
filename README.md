@@ -1,4 +1,6 @@
 # MEAN-Chat
+Chat application using the MEAN Stack (MongoDB, ExpressJS, AngularJS, NodeJS).
+The application was developed as a single page application in the front-end using AngularJS and Angular Material. The back-end was implemented using NodeJS with ExpressJS to expose RESTful API to manipulate the database in MongoDB. User authentications was implemented with PassportJS and the Facebook Login API. Push notifications were implemented using Socket.io. All the code was written using TypeScript and ES6+ code.
 
 # Sign up with facebook or with name, email, and password 
 ![Alt text](/Readme%20Pictures/Signup.png?raw=true "Signup")
